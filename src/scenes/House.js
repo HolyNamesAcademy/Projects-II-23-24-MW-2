@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 
 export default class House extends Phaser.Scene {
+
   constructor() {
     super({ key: 'House' });
 
@@ -29,8 +30,6 @@ export default class House extends Phaser.Scene {
 
     var bg = this.add.image(400, 250, 'house background');
     bg.setDisplaySize(800, 650);
-
-
 
     this.platforms = this.physics.add.staticGroup();
 

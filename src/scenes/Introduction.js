@@ -21,9 +21,7 @@ export default class Introduction extends Phaser.Scene {
 
     this.input.once('pointerdown', function() {
       console.log('From Introduction to House');
-
       this.scene.start('House');
-
     }, this);
   }
 
