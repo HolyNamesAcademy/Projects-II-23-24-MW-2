@@ -84,6 +84,10 @@ export default class House extends Phaser.Scene {
       frameRate: 5,
       repeat: -1
     });
+    /*this.input.once('pointerdown', function() {
+      console.log('From House to Forest');
+      this.scene.start('Forest');
+    }, this);*/
   }
 
   update() {
