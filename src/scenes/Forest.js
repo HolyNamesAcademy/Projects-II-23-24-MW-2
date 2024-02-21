@@ -39,6 +39,7 @@ this.anims.create({
       frames: this.anims.generateFrameNumbers('dog', { start: 4, end: 6 }),
       frameRate: 10,
       repeat: -1
+    });
 
     this.anims.create({
       key: 'turn',
