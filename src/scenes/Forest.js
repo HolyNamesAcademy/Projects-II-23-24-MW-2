@@ -51,14 +51,21 @@ export default class Forest extends Phaser.Scene {
     this.player = this.physics.add.sprite(100, 450, 'dog');
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
+<<<<<<< HEAD
 
     this.anims.create({
+=======
+  this.anims.create({
+>>>>>>> ce3d01eb40e2d116975c70f5ece109792ce38ce2
       key: 'left',
       frames: this.anims.generateFrameNumbers('dog', { start: 4, end: 6 }),
       frameRate: 10,
       repeat: -1
     });
+<<<<<<< HEAD
 
+=======
+>>>>>>> ce3d01eb40e2d116975c70f5ece109792ce38ce2
     this.anims.create({
       key: 'turn',
       frames: [{ key: 'dog', frame: 2 }],
