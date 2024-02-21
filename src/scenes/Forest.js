@@ -21,24 +21,43 @@ export default class Forest extends Phaser.Scene {
      this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 48, frameHeight: 42 });
     this.load.spritesheet('dog', 'assets/dog sprite sheet final vr.png', { frameWidth: 52, frameHeight: 40 });
      this.load.image('sky', 'assets/sky.png');
+       this.load.image('house background', 'assets/house background.png');
+    this.load.image('key', 'assets/key 2.png');
+
          };
 
  create() {
-     this.platforms = this.physics.add.staticGroup();
+
+{
+    this.scale.displaySize.setAspectRatio(16 / 8);
+    this.scale.refresh();
+    //this.add.image(400, 200, 'sky');
+
+    var bg = this.add.image(400, 250, 'sky');
+    bg.setDisplaySize(800, 650);
+
+    this.platforms = this.physics.add.staticGroup();
 
     this.platforms.create(400, 568, 'ground').setScale(2).refreshBody();
 
     this.platforms.create(600, 400, 'ground');
     this.platforms.create(50, 250, 'ground');
     this.platforms.create(750, 220, 'ground');
-this.player = this.physics.add.sprite(100, 450, 'dog');
+
+    this.key = this.add.image(this.keyCoordX, this.keyCoordY, 'key');
+    this.key.setDisplaySize(50, 50);
+
+    //player
+    this.player = this.physics.add.sprite(100, 450, 'dog');
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
-this.anims.create({
+
+    this.anims.create({
       key: 'left',
       frames: this.anims.generateFrameNumbers('dog', { start: 4, end: 6 }),
       frameRate: 10,
       repeat: -1
+    });
 
     this.anims.create({
       key: 'turn',
@@ -48,7 +67,7 @@ this.anims.create({
 
     this.anims.create({
       key: 'right',
-      frames: anims.generateFrameNumbers('dog', { start: 7, end: 9 }),
+      frames: this.anims.generateFrameNumbers('dog', { start: 7, end: 9 }),
       frameRate: 10,
       repeat: -1
     });
@@ -70,8 +89,8 @@ this.anims.create({
       frameRate: 5,
       repeat: -1
     });
+  
   }
-
   /*{this.input.once('pointerdown', function() {
       console.log('From House to Forest');
       this.scene.start('Forest');
