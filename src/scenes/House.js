@@ -9,7 +9,7 @@ export default class House extends Phaser.Scene {
     this.keyCoordX = 100;
     this.keyCoordY = 100;
     this.key;
-    this.haveKey = JSON.parse(localStorage.getItem('haveKey')) || false;
+    this.haveKey = JSON.parse(localStorage.getItem('haveKey'));
     this.player;
   }
 
@@ -122,7 +122,7 @@ export default class House extends Phaser.Scene {
         localStorage.setItem('haveKey', this.haveKey);
       }
 
-      if ((this.player.x < 450 && this.player.x > 350) && (this.player.y < 450 && this.player.y > 370) && this.haveKey == true) {
+      if ((this.player.x < 450 && this.player.x > 350) && (this.player.y < 450 && this.player.y > 370) && JSON.parse(localStorage.getItem('haveKey')) == true) {
         this.player.destroy();
         this.scene.start('Forest');
       }
