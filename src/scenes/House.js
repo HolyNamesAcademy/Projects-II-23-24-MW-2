@@ -39,8 +39,15 @@ export default class House extends Phaser.Scene {
     this.platforms.create(50, 250, 'ground');
     this.platforms.create(750, 220, 'ground');
 
-    this.key = this.add.image(this.keyCoordX, this.keyCoordY, 'key');
-    this.key.setDisplaySize(50, 50);
+    //key
+    if(JSON.parse(localStorage.getItem('haveKey'))){
+
+    }
+    else{
+      this.key = this.add.image(this.keyCoordX, this.keyCoordY, 'key');
+      this.key.setDisplaySize(50, 50);
+    }
+    
 
     //player
     this.player = this.physics.add.sprite(100, 450, 'dog');
