@@ -7,13 +7,6 @@ export default class Forest extends Phaser.Scene {
      this.player;
      this.platforms;
 
-    /* Define or initialize any variable you want to use in MORE THAN ONE method here.
-     * For example, if you want to use player and haveKey in both the create() and update() methods:
-     *
-     *  this.player;
-     *  this.haveKey = false;
-     *
-     */
   }
   preload() {
     /* load any images or spritesheets here, for example:
@@ -21,7 +14,7 @@ export default class Forest extends Phaser.Scene {
      this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 48, frameHeight: 42 });
     this.load.spritesheet('dog', 'assets/dog sprite sheet final vr.png', { frameWidth: 52, frameHeight: 40 });
      this.load.image('sky', 'assets/sky.png');
-       this.load.image('house background', 'assets/house background.png');
+       this.load.image('forest background', 'assets/pixel-frame-0 (5) 1.png');
     this.load.image('key', 'assets/key 2.png');
 
          };
@@ -51,21 +44,14 @@ export default class Forest extends Phaser.Scene {
     this.player = this.physics.add.sprite(100, 450, 'dog');
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
-<<<<<<< HEAD
 
     this.anims.create({
-=======
-  this.anims.create({
->>>>>>> ce3d01eb40e2d116975c70f5ece109792ce38ce2
       key: 'left',
       frames: this.anims.generateFrameNumbers('dog', { start: 4, end: 6 }),
       frameRate: 10,
       repeat: -1
     });
-<<<<<<< HEAD
 
-=======
->>>>>>> ce3d01eb40e2d116975c70f5ece109792ce38ce2
     this.anims.create({
       key: 'turn',
       frames: [{ key: 'dog', frame: 2 }],
@@ -98,11 +84,6 @@ export default class Forest extends Phaser.Scene {
     });
   
   }
-  /*{this.input.once('pointerdown', function() {
-      console.log('From House to Forest');
-      this.scene.start('Forest');
-    }, this);
-  }*/
 
   update() {
    
