@@ -7,7 +7,7 @@ export default class Introduction extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('introBackground', 'assets/intro_city_background_.png');
+    this.load.image('introBackground', 'assets/introCityBackground.png');
   }
 
   create() {
