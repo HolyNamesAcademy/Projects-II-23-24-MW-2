@@ -9,7 +9,7 @@ export default class House extends Phaser.Scene {
     this.keyCoordX = 100;
     this.keyCoordY = 100;
     this.key;
-    this.haveKey = false;
+    this.haveKey = JSON.parse(localStorage.getItem('haveKey'));
     this.player;
   }
 
@@ -39,8 +39,16 @@ export default class House extends Phaser.Scene {
     this.platforms.create(50, 250, 'ground');
     this.platforms.create(750, 220, 'ground');
 
-    this.key = this.add.image(this.keyCoordX, this.keyCoordY, 'key');
-    this.key.setDisplaySize(50, 50);
+    //key
+    if(JSON.parse(localStorage.getItem('haveKey'))){
+      this.key = this.add.image(this.keyCoordX, this.keyCoordY, 'key');
+      this.key.visible = false;
+    }
+    else{
+      this.key = this.add.image(this.keyCoordX, this.keyCoordY, 'key');
+      this.key.setDisplaySize(50, 50);
+    }
+    
 
     //player
     this.player = this.physics.add.sprite(100, 450, 'dog');
@@ -84,10 +92,7 @@ export default class House extends Phaser.Scene {
       frameRate: 5,
       repeat: -1
     });
-    /*this.input.once('pointerdown', function() {
-      console.log('From House to Forest');
-      this.scene.start('Forest');
-    }, this);*/
+  
   }
 
   update() {
@@ -115,14 +120,16 @@ export default class House extends Phaser.Scene {
         this.player.setVelocityY(0);
         //this.player.anims.play('idle');
       }
-
+      
       if ((this.player.x < this.keyCoordX + 50 && this.player.x > this.keyCoordX - 20) && (this.player.y < this.keyCoordY + 30 && this.player.y > this.keyCoordY - 10)) {
-        this.key.destroy();
+        this.key.visible = false;
         this.haveKey = true;
+        localStorage.setItem('haveKey', this.haveKey);
       }
 
-      if ((this.player.x < 450 && this.player.x > 350) && (this.player.y < 450 && this.player.y > 370) && this.haveKey == true) {
+      if ((this.player.x < 450 && this.player.x > 350) && (this.player.y < 450 && this.player.y > 370) && JSON.parse(localStorage.getItem('haveKey')) == true) {
         this.player.destroy();
+        this.scene.start('Forest');
       }
 
       /* old jump - not needed anymore

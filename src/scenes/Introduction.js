@@ -7,13 +7,13 @@ export default class Introduction extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('greenBackground', 'assets/green.png');
+    this.load.image('introBackground', 'assets/intro_city_background_.png');
   }
 
   create() {
     this.scale.displaySize.setAspectRatio(2 / 1);
     this.scale.refresh();
-    var bg = this.add.image(400, 200, 'greenBackground');
+    var bg = this.add.image(400, 200, 'introBackground');
     bg.setDisplaySize(800, 400);
     var score = 0;
     var scoreText;
