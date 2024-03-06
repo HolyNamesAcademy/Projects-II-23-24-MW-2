@@ -41,7 +41,8 @@ export default class House extends Phaser.Scene {
 
     //key
     if(JSON.parse(localStorage.getItem('haveKey'))){
-
+      this.key = this.add.image(this.keyCoordX, this.keyCoordY, 'key');
+      this.key.visible = false;
     }
     else{
       this.key = this.add.image(this.keyCoordX, this.keyCoordY, 'key');
@@ -119,9 +120,9 @@ export default class House extends Phaser.Scene {
         this.player.setVelocityY(0);
         //this.player.anims.play('idle');
       }
-
+      
       if ((this.player.x < this.keyCoordX + 50 && this.player.x > this.keyCoordX - 20) && (this.player.y < this.keyCoordY + 30 && this.player.y > this.keyCoordY - 10)) {
-        this.key.destroy();
+        this.key.visible = false;
         this.haveKey = true;
         localStorage.setItem('haveKey', this.haveKey);
       }
