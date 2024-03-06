@@ -31,6 +31,7 @@ export default class House extends Phaser.Scene {
     var bg = this.add.image(400, 250, 'house background');
     bg.setDisplaySize(800, 650);
 
+    /*
     this.platforms = this.physics.add.staticGroup();
 
     this.platforms.create(400, 568, 'ground').setScale(2).refreshBody();
@@ -38,6 +39,7 @@ export default class House extends Phaser.Scene {
     this.platforms.create(600, 400, 'ground');
     this.platforms.create(50, 250, 'ground');
     this.platforms.create(750, 220, 'ground');
+    */
 
     //key
     if(JSON.parse(localStorage.getItem('haveKey'))){
