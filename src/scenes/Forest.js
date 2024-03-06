@@ -21,7 +21,7 @@ export default class Forest extends Phaser.Scene {
 
  create() {
 
-{
+
     this.scale.displaySize.setAspectRatio(16 / 8);
     this.scale.refresh();
     //this.add.image(400, 200, 'sky');
@@ -112,5 +112,5 @@ export default class Forest extends Phaser.Scene {
         //this.player.anims.play('idle');
       }
     }
-}
+  }
 }
