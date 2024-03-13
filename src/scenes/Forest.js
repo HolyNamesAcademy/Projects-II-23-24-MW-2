@@ -13,8 +13,7 @@ export default class Forest extends Phaser.Scene {
      */
      this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 48, frameHeight: 42 });
     this.load.spritesheet('dog', 'assets/dog sprite sheet final vr.png', { frameWidth: 52, frameHeight: 40 });
-     this.load.image('sky', 'assets/sky.png');
-       this.load.image('forest background', 'assets/pixel-frame-0 (5) 1.png');
+     this.load.image('forest', 'assets/forest.png');
     this.load.image('key', 'assets/key 2.png');
 
          };
@@ -26,7 +25,7 @@ export default class Forest extends Phaser.Scene {
     this.scale.refresh();
     //this.add.image(400, 200, 'sky');
 
-    var bg = this.add.image(400, 250, 'sky');
+    var bg = this.add.image(400, 250, 'forest');
     bg.setDisplaySize(800, 650);
 
     /*
@@ -34,10 +33,16 @@ export default class Forest extends Phaser.Scene {
 
     this.platforms.create(400, 568, 'ground').setScale(2).refreshBody();
 
+<<<<<<< HEAD
     this.platforms.create(600, 400, 'ground');
     this.platforms.create(50, 250, 'ground');
     this.platforms.create(750, 220, 'ground');
     */
+=======
+   // this.platforms.create(600, 400, 'ground');
+    //this.platforms.create(50, 250, 'ground');
+    //this.platforms.create(750, 220, 'ground');
+>>>>>>> 7f70b7ec1fadbb6d71adb33bef7dff2d45eee326
 
     this.key = this.add.image(this.keyCoordX, this.keyCoordY, 'key');
     this.key.setDisplaySize(50, 50);
