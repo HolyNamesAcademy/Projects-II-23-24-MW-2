@@ -56,6 +56,7 @@ export default class House extends Phaser.Scene {
     this.player = this.physics.add.sprite(100, 450, 'dog');
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
+    this.player.setDisplaySize(100, 100);
 
     this.anims.create({
       key: 'left',
@@ -129,7 +130,7 @@ export default class House extends Phaser.Scene {
         localStorage.setItem('haveKey', this.haveKey);
       }
 
-      if ((this.player.x < 450 && this.player.x > 350) && (this.player.y < 450 && this.player.y > 370) && JSON.parse(localStorage.getItem('haveKey')) == true) {
+      if ((this.player.x < 450 && this.player.x > 350) && (this.player.y < 450 && this.player.y > 340) && JSON.parse(localStorage.getItem('haveKey')) == true) {
         this.player.destroy();
         this.scene.start('Forest');
       }

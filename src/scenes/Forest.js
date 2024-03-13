@@ -33,16 +33,12 @@ export default class Forest extends Phaser.Scene {
 
     this.platforms.create(400, 568, 'ground').setScale(2).refreshBody();
 
-<<<<<<< HEAD
+
     this.platforms.create(600, 400, 'ground');
     this.platforms.create(50, 250, 'ground');
     this.platforms.create(750, 220, 'ground');
     */
-=======
-   // this.platforms.create(600, 400, 'ground');
-    //this.platforms.create(50, 250, 'ground');
-    //this.platforms.create(750, 220, 'ground');
->>>>>>> 7f70b7ec1fadbb6d71adb33bef7dff2d45eee326
+
 
     this.key = this.add.image(this.keyCoordX, this.keyCoordY, 'key');
     this.key.setDisplaySize(50, 50);
@@ -51,6 +47,7 @@ export default class Forest extends Phaser.Scene {
     this.player = this.physics.add.sprite(100, 450, 'dog');
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
+    this.player.setDisplaySize(100, 100);
 
     this.anims.create({
       key: 'left',
