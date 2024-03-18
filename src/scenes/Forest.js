@@ -6,12 +6,13 @@ export default class Forest extends Phaser.Scene {
     super({ key: 'Forest' });
      this.player;
      this.platforms;
+     this.dude;
 
   }
   preload() {
     /* load any images or spritesheets here, for example:
      */
-     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 48, frameHeight: 42 });
+     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
     this.load.spritesheet('dog', 'assets/dog sprite sheet final vr.png', { frameWidth: 52, frameHeight: 40 });
      this.load.image('forest', 'assets/forest.png');
     this.load.image('key', 'assets/key 2.png');
@@ -86,6 +87,31 @@ export default class Forest extends Phaser.Scene {
       frameRate: 5,
       repeat: -1
     });
+
+    //dude npc
+    this.dude = this.physics.add.sprite(100, 450, 'dude');
+    this.dude = this.dude.setCollideWorldBounds(true);
+
+    this.anims.create({
+      key: 'Dleft',
+      frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+      frameRate: 10,
+      repeat: -1
+    });
+
+    this.anims.create({
+        key: 'Dturn',
+        frames: [ { key: 'dude', frame: 4 } ],
+        frameRate: 20
+    });
+
+    this.anims.create({
+        key: 'Dright',
+        frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
   
   }
 
