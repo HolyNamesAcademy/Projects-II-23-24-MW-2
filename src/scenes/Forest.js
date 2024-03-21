@@ -7,12 +7,16 @@ export default class Forest extends Phaser.Scene {
      this.player;
      this.platforms;
      this.dude;
+     this.dude2;
+     this.counter;
+     this.npcState1;
+     this.npcState2;
 
   }
   preload() {
     /* load any images or spritesheets here, for example:
      */
-     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 30, frameHeight: 48 });
     this.load.spritesheet('dog', 'assets/dog sprite sheet final vr.png', { frameWidth: 52, frameHeight: 40 });
      this.load.image('forest', 'assets/forest.png');
     this.load.image('key', 'assets/key 2.png');
@@ -22,6 +26,8 @@ export default class Forest extends Phaser.Scene {
  create() {
 
 
+    this.npcState1 = 0;
+    this.npcState2 = 0;
     this.scale.displaySize.setAspectRatio(16 / 8);
     this.scale.refresh();
     //this.add.image(400, 200, 'sky');
@@ -40,6 +46,7 @@ export default class Forest extends Phaser.Scene {
     this.platforms.create(750, 220, 'ground');
     */
 
+    this.counter = 0;
 
     this.key = this.add.image(this.keyCoordX, this.keyCoordY, 'key');
     this.key.setDisplaySize(50, 50);
@@ -88,9 +95,11 @@ export default class Forest extends Phaser.Scene {
       repeat: -1
     });
 
-    //dude npc
-    this.dude = this.physics.add.sprite(100, 450, 'dude');
+    //dude npcs
+    this.dude = this.physics.add.sprite(200, 400, 'dog');
     this.dude = this.dude.setCollideWorldBounds(true);
+    this.dude2 = this.physics.add.sprite(350, 200, 'dog');
+    this.dude2 = this.dude.setCollideWorldBounds(true);
 
     this.anims.create({
       key: 'Dleft',
@@ -142,5 +151,40 @@ export default class Forest extends Phaser.Scene {
         //this.player.anims.play('idle');
       }
     }
+
+    if(this.counter < 120){
+        this.counter ++;
+    }
+    else{
+      this.counter = 0;
+      this.npcState1 = Math.random() * (3 - 1) + 1;
+      this.npcState2 = Math.random() * (3-1) + 1;
+    }
+
+
+    
+
+    //random npc movement
+    if(this.npcState1 > 1 && this.npcState1 < 2){
+      this.dude.setVelocityX(-50);
+      this.dude.anims.play('left', true);
+    }  
+    if(this.npcState1 > 2 && this.npcState1 < 3){
+      this.dude.setVelocityX(50);
+      this.dude.anims.play('right', true);
+    }
+    /*
+    if(this.npcState2 > 1 && this.npcState2 < 2){
+      this.dude2.setVelocityY(-50);
+      this.dude2.anims.play('up', true);
+    }  
+    if(this.npcState2 > 2 && this.npcState2 < 3){
+      this.dude2.setVelocityY(50);
+      this.dude2.anims.play('down', true);
+    }
+    */
   }
+
 }
+
+
