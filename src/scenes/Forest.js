@@ -7,10 +7,8 @@ export default class Forest extends Phaser.Scene {
      this.player;
      this.platforms;
      this.dude;
-     this.dude2;
      this.counter;
      this.npcState1;
-     this.npcState2;
 
   }
   preload() {
@@ -98,8 +96,6 @@ export default class Forest extends Phaser.Scene {
     //dude npcs
     this.dude = this.physics.add.sprite(200, 400, 'dog');
     this.dude = this.dude.setCollideWorldBounds(true);
-    this.dude2 = this.physics.add.sprite(350, 200, 'dog');
-    this.dude2 = this.dude.setCollideWorldBounds(true);
 
     this.anims.create({
       key: 'Dleft',
@@ -158,7 +154,6 @@ export default class Forest extends Phaser.Scene {
     else{
       this.counter = 0;
       this.npcState1 = Math.random() * (3 - 1) + 1;
-      this.npcState2 = Math.random() * (3-1) + 1;
     }
 
 
