@@ -179,6 +179,14 @@ export default class Forest extends Phaser.Scene {
       this.dude2.anims.play('down', true);
     }
     */
+
+    //battle
+
+    if(((((this.player.x - this.dude.x) < 50) || ((this.dude.x - this.player.x) < 50 ))&& ((this.dude.y - this.player.y) < 50))){
+      this.hitEnemy ();
+    }
+
+
   }
 
   hitEnemy ()
