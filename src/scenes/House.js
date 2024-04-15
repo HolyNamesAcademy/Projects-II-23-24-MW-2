@@ -20,6 +20,7 @@ export default class House extends Phaser.Scene {
     this.load.spritesheet('dog', 'assets/dog sprite sheet final vr.png', { frameWidth: 52, frameHeight: 40 });
     this.load.image('house background', 'assets/house background.png');
     this.load.image('key', 'assets/key 2.png');
+    this.load.image ('door', 'assets/door.png');
 
   }
 
@@ -30,6 +31,8 @@ export default class House extends Phaser.Scene {
 
     var bg = this.add.image(400, 250, 'house background');
     bg.setDisplaySize(800, 650);
+    var door = this.add.image(350, 392, 'door');
+    door.setScale(0.2);
 
     /*
     this.platforms = this.physics.add.staticGroup();
