@@ -18,6 +18,7 @@ export default class Forest extends Phaser.Scene {
     this.load.spritesheet('dog', 'assets/dog sprite sheet final vr.png', { frameWidth: 52, frameHeight: 40 });
      this.load.image('forest', 'assets/forest.png');
     this.load.image('key', 'assets/key 2.png');
+    this.load.image('chest', 'assets/chest3.png');
 
          };
 
@@ -33,16 +34,14 @@ export default class Forest extends Phaser.Scene {
     var bg = this.add.image(400, 250, 'forest');
     bg.setDisplaySize(800, 650);
 
-    /*
+    
     this.platforms = this.physics.add.staticGroup();
+    this.platforms.create(400, 568, 'chest').setScale(1).refreshBody();
 
-    this.platforms.create(400, 568, 'ground').setScale(2).refreshBody();
-
-
-    this.platforms.create(600, 400, 'ground');
-    this.platforms.create(50, 250, 'ground');
-    this.platforms.create(750, 220, 'ground');
-    */
+    //this.platforms.create(600, 400, 'ground');
+   // this.platforms.create(50, 250, 'ground');
+    this.platforms.create(600, 300, 'chest');
+    //this.physics.add.collider(player, platforms);
 
     this.counter = 0;
 
