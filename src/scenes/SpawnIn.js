@@ -47,7 +47,7 @@ export default class SpawnIn extends Phaser.Scene {
     bg.setDisplaySize(800, 650);
 
     //player
-    this.player = this.physics.add.sprite(100, 450, 'dog');
+    this.player = this.physics.add.sprite(100, 300, 'dog');
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
     this.player.setDisplaySize(100, 100);
@@ -123,6 +123,16 @@ export default class SpawnIn extends Phaser.Scene {
         console.log('From SpawnIn to House');
         this.scene.start('House');
       }
+
+
+    if ((this.player.y > 325)){
+      console.log (this.player.y);
+
+      this.player.destroy();
+        console.log('From SpawnIn to Forest');
+        this.scene.start('Forest');
+
+    }
 
   }
 }

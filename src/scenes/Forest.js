@@ -179,6 +179,12 @@ export default class Forest extends Phaser.Scene {
       this.dude2.anims.play('down', true);
     }
     */
+
+  if (this.player.y < 75 && this.player.y > 0) {
+        this.player.destroy();
+          console.log('From Forest to SpawnIn');
+          this.scene.start('SpawnIn');
+        }
   }
 
   hitEnemy ()
@@ -186,6 +192,7 @@ export default class Forest extends Phaser.Scene {
       debugger;
 
   }
+
 
 }
 

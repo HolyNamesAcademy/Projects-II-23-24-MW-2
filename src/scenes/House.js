@@ -135,7 +135,7 @@ export default class House extends Phaser.Scene {
 
       if ((this.player.x < 450 && this.player.x > 350) && (this.player.y < 450 && this.player.y > 340) && JSON.parse(localStorage.getItem('haveKey')) == true) {
         this.player.destroy();
-        this.scene.start('Forest');
+        this.scene.start('SpawnIn');
       }
 
       /* old jump - not needed anymore
