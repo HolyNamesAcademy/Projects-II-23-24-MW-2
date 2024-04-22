@@ -20,8 +20,8 @@ export default class Introduction extends Phaser.Scene {
     scoreText = this.add.text(10, 16, '\n          Welcome to a world where dogs reign...\n                       Doglandia \n  After the human population fell at the hands of the dogs, \n      Buildings and homes crumbled and became overgrown. \n     Where city ruins reside, the dogs now thrive. \n  You are on an adventure, to find more bones and prosper. \n    But as you explore this cabin in the woods, be alert, \n        for something is amiss in the forest.', { fontSize: '22px', fill: '#000' });
  
     this.input.once('pointerdown', function() {
-      console.log('From Introduction to House');
-      this.scene.start('House');
+      console.log('From Introduction to SpawnIn');
+      this.scene.start('SpawnIn');
     }, this);
   }
 

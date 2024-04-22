@@ -95,6 +95,7 @@ export default class Forest extends Phaser.Scene {
     //dude npcs
     this.dude = this.physics.add.sprite(200, 400, 'dog');
     this.dude = this.dude.setCollideWorldBounds(true);
+    this.physics.add.collider(this.player, this.dude, this.hitEnemy, null, this);
 
     this.anims.create({
       key: 'Dleft',
@@ -177,6 +178,12 @@ export default class Forest extends Phaser.Scene {
       this.dude2.anims.play('down', true);
     }
     */
+  }
+
+  hitEnemy ()
+  {
+      debugger;
+
   }
 
 }
