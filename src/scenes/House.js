@@ -20,8 +20,9 @@ export default class House extends Phaser.Scene {
     this.load.spritesheet('dog', 'assets/dog sprite sheet final vr.png', { frameWidth: 52, frameHeight: 40 });
     this.load.image('house background', 'assets/house background.png');
     this.load.image('key', 'assets/key 2.png');
-    this.load.image ('door', 'assets/door.png');
 
+    this.load.image('wall','assets/platform.png');
+    this.load.image ('door', 'assets/door.png');
   }
 
   create() {
@@ -29,11 +30,18 @@ export default class House extends Phaser.Scene {
     this.scale.refresh();
     //this.add.image(400, 200, 'sky');
 
+
     var bg = this.add.image(400, 250, 'house background');
     bg.setDisplaySize(800, 650);
     var door = this.add.image(350, 392, 'door');
     door.setScale(0.2);
 
+ this.platforms = this.physics.add.staticGroup();
+    this.platforms.create(400, 568, 'wall').setScale(1).refreshBody();
+
+   this.platforms.create(600, 400, 'ground');
+   //this.platforms.create(750,220,'ground');
+   this.platforms.create(45,400,'ground');
     /*
     this.platforms = this.physics.add.staticGroup();
 
