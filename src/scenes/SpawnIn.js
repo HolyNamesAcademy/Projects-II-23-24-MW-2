@@ -23,6 +23,7 @@ export default class SpawnIn extends Phaser.Scene {
     this.keyCoordX = 100;
     this.keyCoordY = 100;
     this.player;
+    this.previousX = Json.parse(localStorage.getItem('previousX'));
 
     /* Define or initialize any variable you want to use in MORE THAN ONE method here.
      * For example, if you want to use player and haveKey in both the create() and update() methods:
@@ -47,7 +48,13 @@ export default class SpawnIn extends Phaser.Scene {
     bg.setDisplaySize(800, 650);
 
     //player
-    this.player = this.physics.add.sprite(100, 300, 'dog');
+    if (this.previousX != null){
+      this.player = this.physics.add.sprite(this.previousX, 300, 'dog');
+    }
+    else{
+      this.player = this.physics.add.sprite(100, 300, 'dog');
+    }
+
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
     this.player.setDisplaySize(100, 100);
@@ -120,6 +127,7 @@ export default class SpawnIn extends Phaser.Scene {
 
     if ((this.player.x < 550 && this.player.x > 450) && (this.player.y < 75 && this.player.y > 0)) {
       this.player.destroy();
+        localStorage.setItem('previousX', this.player.x);
         console.log('From SpawnIn to House');
         this.scene.start('House');
       }
@@ -129,6 +137,7 @@ export default class SpawnIn extends Phaser.Scene {
       console.log (this.player.y);
 
       this.player.destroy();
+        localStorage.setItem('previousX', this.player.x);
         console.log('From SpawnIn to Forest');
         this.scene.start('Forest');
 

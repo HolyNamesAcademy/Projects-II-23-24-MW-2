@@ -9,6 +9,7 @@ export default class Forest extends Phaser.Scene {
      this.dude;
      this.counter;
      this.npcState1;
+     this.previousX = Json.parse(localStorage.getItem('previousX'));
 
   }
   preload() {
@@ -49,7 +50,7 @@ export default class Forest extends Phaser.Scene {
     this.key.setDisplaySize(50, 50);
 
     //player
-    this.player = this.physics.add.sprite(100, 450, 'dog');
+    this.player = this.physics.add.sprite(this.previousX, 450, 'dog');
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
     this.player.setDisplaySize(100, 100);
@@ -180,6 +181,7 @@ export default class Forest extends Phaser.Scene {
     */
 
   if (this.player.y < 75 && this.player.y > 0) {
+      localStorage.setItem('previousX', this.player.x);
         this.player.destroy();
           console.log('From Forest to SpawnIn');
           this.scene.start('SpawnIn');

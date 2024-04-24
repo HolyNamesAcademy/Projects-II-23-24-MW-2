@@ -11,6 +11,7 @@ export default class House extends Phaser.Scene {
     this.key;
     this.haveKey = JSON.parse(localStorage.getItem('haveKey'));
     this.player;
+    this.previousX = Json.parse(localStorage.getItem('previousX'));
   }
 
   preload() {
@@ -64,7 +65,7 @@ export default class House extends Phaser.Scene {
     
 
     //player
-    this.player = this.physics.add.sprite(100, 450, 'dog');
+    this.player = this.physics.add.sprite(this.previousX, 450, 'dog');
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
     this.player.setDisplaySize(100, 100);
@@ -142,6 +143,7 @@ export default class House extends Phaser.Scene {
       }
 
       if ((this.player.x < 450 && this.player.x > 350) && (this.player.y < 450 && this.player.y > 340) && JSON.parse(localStorage.getItem('haveKey')) == true) {
+        localStorage.setItem('previousX', this.player.x);
         this.player.destroy();
         this.scene.start('SpawnIn');
       }
