@@ -20,9 +20,10 @@ export default class Forest extends Phaser.Scene {
     /* load any images or spritesheets here, for example:
      */
      this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 30, frameHeight: 48 });
-    this.load.spritesheet('dog', 'assets/dog sprite sheet final vr.png', { frameWidth: 52, frameHeight: 40 });
+    this.load.spritesheet('dog', 'assets/dog sprite sheet final finalll ver.png', { frameWidth: 50, frameHeight: 40 });
      this.load.image('forest', 'assets/forest.png');
     this.load.image('key', 'assets/key 2.png');
+    this.load.image('ball', 'assets/tennis ball.png');
 
          };
 
@@ -65,9 +66,15 @@ export default class Forest extends Phaser.Scene {
 
 
     //ball (need to change image)
-    this.ball1 = this.add.image(this.player.x, this.player.y, 'key')
-    this.ball2 = this.add.image(this.player.x + 50, this.player.y, 'key')
-    this.ball3 = this.add.image(this.player.x + 100, this.player.y, 'key')
+    
+    //this.ball2 = this.add.image(this.player.x + 50, this.player.y, 'key')
+    //this.ball3 = this.add.image(this.player.x + 100, this.player.y, 'key')
+    /*
+    var weapon = this.add.weapon(10, 'dude');
+    weapon.fireFrom.set(this.player.x, this.player.y);
+    this.space.onDown.add(weapon.fire, this);
+    //ahhhhh this is reallyl annoyinngigsn s
+    */ 
 
 
     this.anims.create({
@@ -113,25 +120,6 @@ export default class Forest extends Phaser.Scene {
     this.dude = this.dude.setCollideWorldBounds(true);
     this.physics.add.collider(this.player, this.dude, this.hitEnemy, null, this);
 
-    this.anims.create({
-      key: 'Dleft',
-      frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
-      frameRate: 10,
-      repeat: -1
-    });
-
-    this.anims.create({
-        key: 'Dturn',
-        frames: [ { key: 'dude', frame: 4 } ],
-        frameRate: 20
-    });
-
-    this.anims.create({
-        key: 'Dright',
-        frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
-        frameRate: 10,
-        repeat: -1
-    });
 
   
   }
@@ -166,7 +154,7 @@ export default class Forest extends Phaser.Scene {
       }
 
       if(cursors.space.isDown) {
-          throwBall ();
+          this.throwBall ();
       }
 
     }
@@ -205,21 +193,35 @@ export default class Forest extends Phaser.Scene {
     //battle
 
     if(((((this.player.x - this.dude.x) < 75) || ((this.dude.x - this.player.x) < 75 ))&& ((this.dude.y - this.player.y) < 75))){
-      this.enemyHit ();
+     this.enemyHit ();
+
     }
+
+
 
 
   }
 
   throwBall ()
   {
-      debugger;
+
+      if(this.direction === 1){
+        //throw ball to the left
+        this.ball1 = this.physics.add.sprite(this.player.x, this.player.y, 'ball');
+ 
+        this.ball1.setVelocityX(-50);
+
+      }
+      if(this.direction === 2){
+        //throw ball to the right
+        this.ball1 = this.physics.add.sprite(this.player.x, this.player.y, 'ball');
+        this.ball1.setVelocityX(50);
+      }
 
   }
   enemyHit ()
   {
-    debugger;
-    die ();
+    this.die ();
   }
   die (){
     localStorage.setItem('haveKey', false);
