@@ -289,6 +289,6 @@ export default class Forest extends Phaser.Scene {
     this.die ();
   }
   die (){
-    localStorage.setItem('haveKey', false);
+    //localStorage.setItem('haveKey', false);
   }
 }
