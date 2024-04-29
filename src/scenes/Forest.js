@@ -16,6 +16,11 @@ export default class Forest extends Phaser.Scene {
      this.ball2;
      this.ball3;
      this.timer;
+     this.platforms;
+    this.boneCoordX = 600;
+    this.boneCoordY = 300;
+    this.bone;
+     this.haveBone = JSON.parse(localStorage.getItem('haveBone'));
 
 
   }
@@ -27,6 +32,8 @@ export default class Forest extends Phaser.Scene {
      this.load.image('forest', 'assets/forest.png');
     this.load.image('key', 'assets/key 2.png');
     this.load.image('ball', 'assets/tennis ball (1).png');
+    this.load.image('chest', 'assets/chest3.png');
+    this.load.image('bone','assets/bone.png');
 
          };
 
@@ -44,23 +51,20 @@ export default class Forest extends Phaser.Scene {
     var bg = this.add.image(400, 250, 'forest');
     bg.setDisplaySize(800, 650);
 
-    /*
+    
     this.platforms = this.physics.add.staticGroup();
+    this.platforms.create(400, 568, 'chest').setScale(1).refreshBody();
 
-    this.platforms.create(400, 568, 'ground').setScale(2).refreshBody();
-
-
-    this.platforms.create(600, 400, 'ground');
-    this.platforms.create(50, 250, 'ground');
-    this.platforms.create(750, 220, 'ground');
-    */
+    //this.platforms.create(600, 400, 'ground');
+   // this.platforms.create(50, 250, 'ground');
+    this.platforms.create(600, 300, 'chest');
+    //this.physics.add.collider(player, platforms);
 
     this.counter = 0;
 
     this.key = this.add.image(this.keyCoordX, this.keyCoordY, 'key');
     this.key.setDisplaySize(50, 50);
 
-    
 
     //player
     this.player = this.physics.add.sprite(100, 450, 'dog');
@@ -117,17 +121,40 @@ export default class Forest extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers('dog', { start: 0, end: 1 }),
       frameRate: 5,
       repeat: -1
+
     });
 
     //dude npcs
     this.dude = this.physics.add.sprite(200, 400, 'dog');
     this.dude = this.dude.setCollideWorldBounds(true);
+
     this.physics.add.collider(this.player, this.dude, this.enemyHit, null, this);
 
     //tennis ball stuff
     this.balls = this.physics.add.group();
     this.physics.add.collider(this.balls, this.dude);
     this.physics.add.collider(this.dude, this.balls, this.hitEnemy, null, this);
+
+
+    this.anims.create({
+      key: 'Dleft',
+      frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+      frameRate: 10,
+      repeat: -1
+    });
+
+    this.anims.create({
+        key: 'Dturn',
+        frames: [ { key: 'dude', frame: 4 } ],
+        frameRate: 20
+    });
+
+    this.anims.create({
+        key: 'Dright',
+        frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+        frameRate: 10,
+        repeat: -1
+    });
   
   }
 
@@ -200,6 +227,7 @@ export default class Forest extends Phaser.Scene {
     }
     */
 
+
     //battle
 
     if(((((this.player.x - this.dude.x) < 75) || ((this.dude.x - this.player.x) < 75 ))&& ((this.dude.y - this.player.y) < 75))){
@@ -208,8 +236,28 @@ export default class Forest extends Phaser.Scene {
     }
 
 
+  if (this.player.y < 75 && this.player.y > 0) {
+        this.player.destroy();
+          console.log('From Forest to SpawnIn');
+          this.scene.start('SpawnIn');
+        }
 
+ if ((this.player.x < 601 && this.player.x > 555) && (this.player.y < 301 && this.player.y > 255) ) {
+ 
+ //&& JSON.parse(localStorage.getItem('haveKey')) == true
+      if(JSON.parse(localStorage.getItem('haveKey'))){
+      this.bone = this.add.image(this.boneCoordX, this.boneCoordY, 'bone');
+      this.key.visible = false;
+      }
+    }
 
+   // this.bone.visible = true;
+       // this.haveBone = true;
+       // localStorage.setItem('haveBone', this.haveBone);
+    /*else{
+      this.key = this.add.image(this.boneCoordX, this.boneCoordY, 'bone');
+      this.key.setDisplaySize(80, 100);
+    }*/
   }
 
   throwBall ()
@@ -243,7 +291,4 @@ export default class Forest extends Phaser.Scene {
   die (){
     localStorage.setItem('haveKey', false);
   }
-
 }
-
-
