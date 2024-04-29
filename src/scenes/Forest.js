@@ -9,6 +9,12 @@ export default class Forest extends Phaser.Scene {
      this.dude;
      this.counter;
      this.npcState1;
+     this.platforms;
+    this.boneCoordX = 600;
+    this.boneCoordY = 300;
+    this.bone;
+     this.haveBone = JSON.parse(localStorage.getItem('haveBone'));
+
 
   }
   preload() {
@@ -19,6 +25,7 @@ export default class Forest extends Phaser.Scene {
      this.load.image('forest', 'assets/forest.png');
     this.load.image('key', 'assets/key 2.png');
     this.load.image('chest', 'assets/chest3.png');
+    this.load.image('bone','assets/bone.png');
 
          };
 
@@ -47,6 +54,7 @@ export default class Forest extends Phaser.Scene {
 
     this.key = this.add.image(this.keyCoordX, this.keyCoordY, 'key');
     this.key.setDisplaySize(50, 50);
+
 
     //player
     this.player = this.physics.add.sprite(100, 450, 'dog');
@@ -90,6 +98,7 @@ export default class Forest extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers('dog', { start: 0, end: 1 }),
       frameRate: 5,
       repeat: -1
+
     });
 
     //dude npcs
@@ -116,7 +125,6 @@ export default class Forest extends Phaser.Scene {
         frameRate: 10,
         repeat: -1
     });
-
   
   }
 
@@ -184,6 +192,23 @@ export default class Forest extends Phaser.Scene {
           console.log('From Forest to SpawnIn');
           this.scene.start('SpawnIn');
         }
+
+ if ((this.player.x < 601 && this.player.x > 555) && (this.player.y < 301 && this.player.y > 255) ) {
+ 
+ //&& JSON.parse(localStorage.getItem('haveKey')) == true
+      if(JSON.parse(localStorage.getItem('haveKey'))){
+      this.bone = this.add.image(this.boneCoordX, this.boneCoordY, 'bone');
+      this.key.visible = false;
+      }
+    }
+
+   // this.bone.visible = true;
+       // this.haveBone = true;
+       // localStorage.setItem('haveBone', this.haveBone);
+    /*else{
+      this.key = this.add.image(this.boneCoordX, this.boneCoordY, 'bone');
+      this.key.setDisplaySize(80, 100);
+    }*/
   }
 
   hitEnemy ()
@@ -191,8 +216,4 @@ export default class Forest extends Phaser.Scene {
       debugger;
 
   }
-
-
 }
-
-
