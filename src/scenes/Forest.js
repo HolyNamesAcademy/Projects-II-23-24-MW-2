@@ -9,6 +9,13 @@ export default class Forest extends Phaser.Scene {
      this.dude;
      this.counter;
      this.npcState1;
+     this.direction;
+     this.balls;
+     this.ball;
+     this.ball1;
+     this.ball2;
+     this.ball3;
+     this.timer;
      this.platforms;
     this.boneCoordX = 600;
     this.boneCoordY = 300;
@@ -21,9 +28,10 @@ export default class Forest extends Phaser.Scene {
     /* load any images or spritesheets here, for example:
      */
      this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 30, frameHeight: 48 });
-    this.load.spritesheet('dog', 'assets/dog sprite sheet final vr.png', { frameWidth: 52, frameHeight: 40 });
+    this.load.spritesheet('dog', 'assets/dog sprite sheet final finalll ver.png', { frameWidth: 50, frameHeight: 40 });
      this.load.image('forest', 'assets/forest.png');
     this.load.image('key', 'assets/key 2.png');
+    this.load.image('ball', 'assets/tennis ball (1).png');
     this.load.image('chest', 'assets/chest3.png');
     this.load.image('bone','assets/bone.png');
 
@@ -34,6 +42,8 @@ export default class Forest extends Phaser.Scene {
 
     this.npcState1 = 0;
     this.npcState2 = 0;
+    this.direction = 0;
+    this.timer = 0;
     this.scale.displaySize.setAspectRatio(16 / 8);
     this.scale.refresh();
     //this.add.image(400, 200, 'sky');
@@ -61,6 +71,19 @@ export default class Forest extends Phaser.Scene {
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
     this.player.setDisplaySize(100, 100);
+
+
+    //ball (need to change image)
+    
+    //this.ball2 = this.add.image(this.player.x + 50, this.player.y, 'key')
+    //this.ball3 = this.add.image(this.player.x + 100, this.player.y, 'key')
+    /*
+    var weapon = this.add.weapon(10, 'dude');
+    weapon.fireFrom.set(this.player.x, this.player.y);
+    this.space.onDown.add(weapon.fire, this);
+    //ahhhhh this is reallyl annoyinngigsn s
+    */ 
+
 
     this.anims.create({
       key: 'left',
@@ -104,7 +127,14 @@ export default class Forest extends Phaser.Scene {
     //dude npcs
     this.dude = this.physics.add.sprite(200, 400, 'dog');
     this.dude = this.dude.setCollideWorldBounds(true);
-    this.physics.add.collider(this.player, this.dude, this.hitEnemy, null, this);
+
+    this.physics.add.collider(this.player, this.dude, this.enemyHit, null, this);
+
+    //tennis ball stuff
+    this.balls = this.physics.add.group();
+    this.physics.add.collider(this.balls, this.dude);
+    this.physics.add.collider(this.dude, this.balls, this.hitEnemy, null, this);
+
 
     this.anims.create({
       key: 'Dleft',
@@ -135,9 +165,11 @@ export default class Forest extends Phaser.Scene {
       if (cursors.left.isDown) {
         this.player.setVelocityX(-160);
         this.player.anims.play('left', true);
+        this.direction = 1;
       } else if (cursors.right.isDown) {
         this.player.setVelocityX(160);
         this.player.anims.play('right', true);
+        this.direction = 2;
       } else {
         this.player.setVelocityX(0);
         this.player.anims.play('idle', true);
@@ -154,6 +186,12 @@ export default class Forest extends Phaser.Scene {
         this.player.setVelocityY(0);
         //this.player.anims.play('idle');
       }
+
+      if(cursors.space.isDown && this.timer > 50) {
+          this.throwBall ();
+          this.timer = 0;
+      }
+
     }
 
     if(this.counter < 120){
@@ -163,6 +201,8 @@ export default class Forest extends Phaser.Scene {
       this.counter = 0;
       this.npcState1 = Math.random() * (3 - 1) + 1;
     }
+
+    this.timer++;
 
 
     
@@ -186,6 +226,15 @@ export default class Forest extends Phaser.Scene {
       this.dude2.anims.play('down', true);
     }
     */
+
+
+    //battle
+
+    if(((((this.player.x - this.dude.x) < 75) || ((this.dude.x - this.player.x) < 75 ))&& ((this.dude.y - this.player.y) < 75))){
+     this.enemyHit ();
+
+    }
+
 
   if (this.player.y < 75 && this.player.y > 0) {
         this.player.destroy();
@@ -211,9 +260,35 @@ export default class Forest extends Phaser.Scene {
     }*/
   }
 
-  hitEnemy ()
+  throwBall ()
   {
-      debugger;
 
+      if(this.direction === 1){
+        //throw ball to the left
+        //this.ball1 = this.physics.add.sprite(this.player.x, this.player.y, 'ball');
+        this.ball = this.balls.create(this.player.x, this.player.y, 'ball');
+        this.ball.setVelocityX(-300);
+
+      }
+      if(this.direction === 2){
+        //throw ball to the right
+        //this.ball1 = this.physics.add.sprite(this.player.x, this.player.y, 'ball');
+        this.ball = this.balls.create(this.player.x, this.player.y, 'ball');
+        this.ball.setVelocityX(300);
+      }
+
+  }
+
+  hitEnemy () {
+    console.log("made it");
+    this.ball.destroy();
+  }
+
+  enemyHit ()
+  {
+    this.die ();
+  }
+  die (){
+    localStorage.setItem('haveKey', false);
   }
 }
