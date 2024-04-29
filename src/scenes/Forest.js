@@ -10,9 +10,12 @@ export default class Forest extends Phaser.Scene {
      this.counter;
      this.npcState1;
      this.direction;
+     this.balls;
+     this.ball;
      this.ball1;
      this.ball2;
      this.ball3;
+     this.timer;
 
 
   }
@@ -23,7 +26,7 @@ export default class Forest extends Phaser.Scene {
     this.load.spritesheet('dog', 'assets/dog sprite sheet final finalll ver.png', { frameWidth: 50, frameHeight: 40 });
      this.load.image('forest', 'assets/forest.png');
     this.load.image('key', 'assets/key 2.png');
-    this.load.image('ball', 'assets/tennis ball.png');
+    this.load.image('ball', 'assets/tennis ball (1).png');
 
          };
 
@@ -33,6 +36,7 @@ export default class Forest extends Phaser.Scene {
     this.npcState1 = 0;
     this.npcState2 = 0;
     this.direction = 0;
+    this.timer = 0;
     this.scale.displaySize.setAspectRatio(16 / 8);
     this.scale.refresh();
     //this.add.image(400, 200, 'sky');
@@ -118,9 +122,12 @@ export default class Forest extends Phaser.Scene {
     //dude npcs
     this.dude = this.physics.add.sprite(200, 400, 'dog');
     this.dude = this.dude.setCollideWorldBounds(true);
-    this.physics.add.collider(this.player, this.dude, this.hitEnemy, null, this);
+    this.physics.add.collider(this.player, this.dude, this.enemyHit, null, this);
 
-
+    //tennis ball stuff
+    this.balls = this.physics.add.group();
+    this.physics.add.collider(this.balls, this.dude);
+    this.physics.add.collider(this.dude, this.balls, this.hitEnemy, null, this);
   
   }
 
@@ -153,8 +160,9 @@ export default class Forest extends Phaser.Scene {
         //this.player.anims.play('idle');
       }
 
-      if(cursors.space.isDown) {
+      if(cursors.space.isDown && this.timer > 50) {
           this.throwBall ();
+          this.timer = 0;
       }
 
     }
@@ -166,6 +174,8 @@ export default class Forest extends Phaser.Scene {
       this.counter = 0;
       this.npcState1 = Math.random() * (3 - 1) + 1;
     }
+
+    this.timer++;
 
 
     
@@ -207,18 +217,25 @@ export default class Forest extends Phaser.Scene {
 
       if(this.direction === 1){
         //throw ball to the left
-        this.ball1 = this.physics.add.sprite(this.player.x, this.player.y, 'ball');
- 
-        this.ball1.setVelocityX(-50);
+        //this.ball1 = this.physics.add.sprite(this.player.x, this.player.y, 'ball');
+        this.ball = this.balls.create(this.player.x, this.player.y, 'ball');
+        this.ball.setVelocityX(-300);
 
       }
       if(this.direction === 2){
         //throw ball to the right
-        this.ball1 = this.physics.add.sprite(this.player.x, this.player.y, 'ball');
-        this.ball1.setVelocityX(50);
+        //this.ball1 = this.physics.add.sprite(this.player.x, this.player.y, 'ball');
+        this.ball = this.balls.create(this.player.x, this.player.y, 'ball');
+        this.ball.setVelocityX(300);
       }
 
   }
+
+  hitEnemy () {
+    console.log("made it");
+    this.ball.destroy();
+  }
+
   enemyHit ()
   {
     this.die ();
